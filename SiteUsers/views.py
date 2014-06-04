@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from SiteUsers.forms import UserForm
 from django.contrib.auth.models import User
+from django.contrib.auth import logout,login,authenticate
 from SiteUsers.models import UserProfile,Friends,Education,Location,School
 import facebook
 import datetime
@@ -58,22 +59,37 @@ def register(request):
 						last_name=fbprofile['last_name'],location = location,birthyear = datetime.datetime.strptime(fbprofile['birthday'],'%m/%d/%Y').year)
 					userprofile.save()
 					enterSchoolUser(fbprofile["education"],userprofile)
-					enterFriends(fbfriends,userprofile) 
+					enterFriends(fbfriends,userprofile)
+
+					# log user in
+					new_user = authenticate(username=form_data['username'],password=form_data['password'])
+					login(request, new_user) 
 
 					# send user to verify instagram
-					RedirectURI = 'http://'+request.get_host()+reverse('IGsuccess')
-					IGUrl = 'https://api.instagram.com/oauth/authorize/?client_id='+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&response_type=code'
+					RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
+					IGUrl = 'https://api.instagram.com/oauth/authorize/?client_id='+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&response_type=code'+'&state=register'
 					return HttpResponseRedirect(RedirectURI)
 				else: #fb user already assigned to a user
 					return HttpResponse('FB already assigned')
 			else: #fb denied
 				HttpResponse('you denied fb')
 		else: #form not valid
+
 			user_form = UserForm()
 			context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS,'user_form': user_form}
 			return HttpResponse(form.is_valid())
 	else:
-
+		
 		user_form = UserForm()
-		context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS,'user_form': user_form}
+		context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS,
+		           'user_form': user_form,'IG':(False,'')}
 		return render(request,"SiteUsers/register.html",context)
+
+def login_view(request):
+	user = authenticate(username=request.POST['username'],password=request.POST['password'])
+	login(request, user) 
+	return HttpResponse('logged in')
+
+def logout_view(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('Rankings:public'))

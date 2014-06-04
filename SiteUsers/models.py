@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 	ig_token = models.CharField(max_length=500,default='')
 	location = models.ForeignKey('Location')
 	birthyear = models.CharField(max_length=200)
+	gender = models.CharField(max_length=10,default='')
 
     # Override the __unicode__() method to return out something meaningful!
 	def __unicode__(self):

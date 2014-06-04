@@ -10,7 +10,7 @@
     <meta name="author" content="">
 <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'HereOrThere/css/bootstrap.min.css' %}" />
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+	<link rel="stylesheet" href="{% static 'HereOrThere/css/pure-min.css' %}" />
 	<!-- Custom styles for this template -->
 	<link rel="stylesheet" type="text/css" href="{% static 'HereOrThere/css/jumbotron-narrow.css' %}" />
 <title>HereOrThere: {% block pagetitle %}{% endblock %}</title>
@@ -24,17 +24,65 @@
 
 <div class="container">
       <div class="header">
+<!--Login buttons or logout button-->
+
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
+        {% if user.is_authenticated %}
+          <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
+  			<button type="submit" class="btn btn-default">Logout</button>
+		  </form>
+		{% else %}
+          <form class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
+          {% csrf_token %}
+  			<div class="form-group">
+    		  <input type="text" class="form-control" placeholder="Username">
+    		  <input type="text" class="form-control" placeholder="Password">
+  			</div>
+  			<button type="submit" class="btn btn-default">Login</button>
+			</form>
+		{% endif %}
         </ul>
         <h3 class="text-muted">HereOrThere</h3>
+
       </div>
+
 
       <div class="jumbotron">
         <h1>{% block jumboheading %}{% endblock %}</h1>
         <p class="lead">{% block prescript %}{% endblock %}
-<script>{% block script %}{% endblock %}</script>
+<script>
+
+
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+ 
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '{{FACEBOOK_APP_ID}}',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.0' // use version 2.0
+  });
+
+
+  
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+{% block script %}{% endblock %}</script>
 {% block content %}{% endblock %}</p>
       </div>
 
