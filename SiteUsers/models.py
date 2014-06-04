@@ -9,8 +9,12 @@ class UserProfile(models.Model):
 	last_name = models.CharField(max_length=200)
 	fb_id = models.CharField(max_length=200,primary_key=True)
 	ig_token = models.CharField(max_length=500,default='')
+	ig_username = models.CharField(max_length=100,default='')
+	ig_pic = models.CharField(max_length=100,default='')
+	ig_follows = models.IntegerField(default=0)
+	ig_followed = models.IntegerField(default=0)
 	location = models.ForeignKey('Location')
-	birthyear = models.CharField(max_length=200)
+	birthyear = models.IntegerField()
 	gender = models.CharField(max_length=10,default='')
 
     # Override the __unicode__() method to return out something meaningful!
