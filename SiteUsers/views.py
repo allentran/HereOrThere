@@ -68,7 +68,7 @@ def register(request):
 					# send user to verify instagram
 					RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
 					IGUrl = 'https://api.instagram.com/oauth/authorize/?client_id='+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&response_type=code'+'&state=register'
-					return HttpResponseRedirect(RedirectURI)
+					return HttpResponseRedirect(IGUrl)
 				else: #fb user already assigned to a user
 					return HttpResponse('FB already assigned')
 			else: #fb denied
@@ -79,7 +79,6 @@ def register(request):
 			context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS,'user_form': user_form}
 			return HttpResponse(form.is_valid())
 	else:
-		
 		user_form = UserForm()
 		context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS,
 		           'user_form': user_form,'IG':(False,'')}
@@ -88,7 +87,10 @@ def register(request):
 def login_view(request):
 	user = authenticate(username=request.POST['username'],password=request.POST['password'])
 	login(request, user) 
-	return HttpResponse('logged in')
+	RedirectURI = reverse('Instagram:redirect')
+	IGUrl = 'https://api.instagram.com/oauth/authorize/?client_id='+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&response_type=code'+'&state=login'
+	return HttpResponseRedirect(IGUrl)
+
 
 def logout_view(request):
 	logout(request)
