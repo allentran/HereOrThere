@@ -7,31 +7,25 @@ from SiteUsers.models import UserProfile,Friends,Education,Location,School
 import requests
 
 # update ig_data for userprofile
-def updateIGdata(userprofile):
-  try:
-    token = userprofile.ig_token
-  except:
-    token = ''
-  IGURL = 'https://api.instagram.com/v1/users/self/?access_token='+token
-  IG_response = requests.get(IGURL).json()
-  if IG_response['meta']['code'] == 200: #IG not accepted for some reason
-    userprofile.ig_username = IG_response['data']['username']
-    userprofile.ig_pic = IG_response['data']['profile_picture']
-    userprofile.ig_follows = IG_response['data']['follows']
-    userprofile.ig_followers = IG_response['data']['followed_by']
-    userprofile.save()
-    return True
-  else:
-    return False
+def updateIGdata(userprofile,userdata):
+  token = userprofile.ig_token
+  userprofile.ig_username = userdata['username']
+  userprofile.ig_pic = userdata['profile_picture']
+  if 'counts' in userdata:
+    userprofile.ig_follows = userdata['counts']['follows']
+    userprofile.ig_followers = userdata['counts']['followed_by']
+  userprofile.save()
 
 # Check if current token is valid by trying to update
 def check(request):
-  if updateIGdata(request.user.userprofile): 
-    return HttpResponse('IG all good, should be battle or location')
+  state = request.GET.get("state")
+  stored_token = request.user.userprofile.ig_token
+  r = requests.get('https://api.instagram.com/v1/users/self?access_token='+stored_token).json()
+  if r['meta']['code'] == 200:
+    updateIGdata(request.user.userprofile,r['data'])
+    return HttpResponse('IG all good + updated, should be battle or location')
   else: #go login and get a new token
-    RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
-    IGUrl = 'https://api.instagram.com/oauth/authorize/?client_id='+settings.IG_CLIENT_ID+'&response_type=code'+'&state=login'+'&redirect_uri='+RedirectURI
-    return HttpResponseRedirect(IGUrl)
+    return HttpResponseRedirect(reverse('SiteUsers:instagram')+'?state='+state)
 
 # Return HttpRedirect based on state
 
@@ -44,17 +38,23 @@ def getRedirectURL(state):
 # Make sure token matches current user or is new
 def redirect(request):
   state = request.GET.get("state")
-  candidate_token = request.GET.get("code")
+  code = request.GET.get("code")
+  RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
+  keys = {'client_id':settings.IG_CLIENT_ID,'client_secret':settings.IG_CLIENT_SECRET,'grant_type':'authorization_code','redirect_uri':RedirectURI,'code':code }
+  p = requests.post('https://api.instagram.com/oauth/access_token',data=keys)
+  candidate_token = p.json()['access_token']
   stored_token = request.user.userprofile.ig_token
   token_not_exist = UserProfile.objects.filter(ig_token = candidate_token).count() == 0
   if candidate_token == stored_token: #proceed 
-    updateIGdata(request.user.userprofile)
-    return getRedirectURL(state)
+    updateIGdata(request.user.userprofile,p.json()['user'])
+    return HttpResponse(request.user.userprofile)
+    #return getRedirectURL(state)
   elif token_not_exist: #update db
     request.user.userprofile.ig_token = candidate_token
     request.user.userprofile.save()
-    updateIGdata(request.user.userprofile) 
-    return getRedirectURL(state)
+    updateIGdata(request.user.userprofile,p.json()['user'])
+    return HttpResponse(request.user.userprofile) 
+    #return getRedirectURL(state)
   else: # token exists for some other account - > logout
     HttpResponseRedirect('https://instagram.com/accounts/logout/')
     

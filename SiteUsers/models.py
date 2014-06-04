@@ -12,7 +12,7 @@ class UserProfile(models.Model):
 	ig_username = models.CharField(max_length=100,default='')
 	ig_pic = models.CharField(max_length=100,default='')
 	ig_follows = models.IntegerField(default=0)
-	ig_followed = models.IntegerField(default=0)
+	ig_followers = models.IntegerField(default=0)
 	location = models.ForeignKey('Location')
 	birthyear = models.IntegerField()
 	gender = models.CharField(max_length=10,default='')
