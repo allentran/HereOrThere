@@ -19,7 +19,6 @@ test_user_b = {'first_name':'Kelvin','last_name':'Tran','fb_token':'FBktran','ig
 
 class DBTestCase(TestCase):
   # or load fixtures from DB
-
   def setup(self):
     user_a = User(username='user_a',password='password',email='email')
     userprofile_a = UserProfile(user=user_a,**test_user_a)
@@ -29,10 +28,11 @@ class DBTestCase(TestCase):
     user_a.save(),user_b.save()
     userprofile_a.save(),userprofile_b.save()
 
-  def checkRelations(self):
-
+  def checkExists(self):
+    users = User.objects.all()
+    return self.assertIn(user_a,users)
     
 # Connect to instagram, connect to FB
-class FBTestCase(TestCase):
+#class FBTestCase(TestCase):
 
 
