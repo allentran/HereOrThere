@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^locate/', include('Location.urls',namespace='Location')),
     url(r'^battle/', include('Battles.urls',namespace='Battles')),
     url(r'^instagram/', include('Instagram.urls',namespace='Instagram')),
+    url(r'^errors/', include('Errors.urls',namespace='Errors')),
 )

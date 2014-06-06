@@ -41,6 +41,8 @@ class Education(models.Model):
 class Location(models.Model):
 	location_id = models.CharField(max_length=200,primary_key=True)
 	location_name = models.CharField(max_length=200)
+	location_lat = models.FloatField(default=0)
+	location_lng = models.FloatField(default=0)
 	def __unicode__(self):
 		return self.location_name
 

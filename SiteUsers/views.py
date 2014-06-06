@@ -96,6 +96,7 @@ def logout_view(request):
   logout(request)
   return HttpResponseRedirect(reverse('SiteUsers:register'))
 
+# Tells user to connect to Instagram, called if 
 def instagram(request):
   state = request.GET['state']
   RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')

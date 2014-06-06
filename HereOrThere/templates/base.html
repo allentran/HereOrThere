@@ -26,22 +26,9 @@
       <div class="header">
 <!--Login buttons or logout button-->
 
-        <ul class="nav nav-pills pull-right">
-        {% if user.is_authenticated %}
-          <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
-  			<button type="submit" class="btn btn-default">Logout</button>
-		  </form>
-		{% else %}
-          <form class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
-          {% csrf_token %}
-  			<div class="form-group">
-    		  <input type="text" class="form-control" name="username" placeholder="Username">
-    		  <input type="text" class="form-control" name="password" placeholder="Password">
-  			</div>
-  			<button type="submit" class="btn btn-default">Login</button>
-			</form>
-		{% endif %}
-        </ul>
+        {% block navright %}
+
+        {% endblock %}
         <h3 class="text-muted">HereOrThere</h3>
 
       </div>
