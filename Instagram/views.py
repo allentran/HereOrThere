@@ -63,7 +63,7 @@ def redirect(request):
       return getRedirectURL(state)
     else: # token exists for some other account - > logout
       request.session['IG_authd'] = False
-      HttpResponseRedirect('https://instagram.com/accounts/logout/')
+      return HttpResponseRedirect('https://instagram.com/accounts/logout/')
   except:
     return HttpResponseRedirect(reverse('Errors:index')+'?errorcode=IGserver')
     

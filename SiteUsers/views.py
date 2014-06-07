@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from SiteUsers.forms import UserForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout,login,authenticate
-from SiteUsers.models import UserProfile,Friends,Education,Location,School
+from .models import UserProfile,Friends,Education,Location,School
 import facebook
 import datetime
 
@@ -43,6 +43,7 @@ def enterFriends(friendsdata,fbuser):
 def enterLocation(locationdata):
   location, created = Location.objects.get_or_create(location_id=locationdata['id'],location_name = locationdata['name'])
   return location
+
 # create Form page or process POST
 def register(request):
   if request.method == 'POST': # If the form has been submitted...
@@ -60,7 +61,8 @@ def register(request):
           user = User.objects.create_user(form_data['username'], form_data['email'], form_data['password'])
           location = enterLocation(fbprofile['location'])
           userprofile = UserProfile(fb_id = fbprofile['id'], user=user, fb_token=fbuser["access_token"],first_name=fbprofile['first_name'],
-            last_name=fbprofile['last_name'],location = location,birthyear = datetime.datetime.strptime(fbprofile['birthday'],'%m/%d/%Y').year)
+            last_name=fbprofile['last_name'],location = location,gender = fbprofile['gender'],
+            birthyear = datetime.datetime.strptime(fbprofile['birthday'],'%m/%d/%Y').year)
           userprofile.save()
           enterSchoolUser(fbprofile["education"],userprofile)
           enterFriends(fbfriends,userprofile)
