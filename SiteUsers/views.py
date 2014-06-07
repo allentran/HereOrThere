@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from SiteUsers.forms import UserForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout,login,authenticate
-from .models import UserProfile,Friends,Education,Location,School
+
 import facebook
 import datetime
+import requests
+
+from .models import UserProfile,Friends,Education,Location,School
+from .forms import UserForm
 
 IGauth = 'https://api.instagram.com/oauth/authorize/?response_type=code&client_id='
 
@@ -18,7 +21,7 @@ def summarize_educ(educ_info):
   school_type = educ_info['type']
   school_name = educ_info['school']['name']
   school, created = School.objects.get_or_create(school_id=school_id)
-  if created:
+  if created: # add school name and type
     school.school_name = school_name
     school.school_type = school_type
     school.save()
@@ -42,6 +45,14 @@ def enterFriends(friendsdata,fbuser):
 
 def enterLocation(locationdata):
   location, created = Location.objects.get_or_create(location_id=locationdata['id'],location_name = locationdata['name'])
+  if created: #geolocate lat/lon
+
+    r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address='+locationdata['name']+'&key='+settings.GOOG_KEY)
+    if r.json()['status'] == 'OK':
+      loc_data = r.json()['results'][0]['geometry']['location']
+      location.lat = loc_data['lat']
+      location.lng = loc_data['lng']
+      location.save()
   return location
 
 # create Form page or process POST
