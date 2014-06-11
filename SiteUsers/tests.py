@@ -74,7 +74,7 @@ class FBIGTests(TestCase):
 
   def test_FB(self):
     # need to get new access token before running test
-    access_token = 'CAALXlVGl6aABAA200yuhIZCwWhY8pwQ4mFZCAVNVelcag7XxcyVBzXm59qprGMInYcZBbZCkZAEPKZCPQrn3ZAmyMBBIW5b21izbiJR7zPPGXZAiZAJ8nmOYYhVZA1OsyrrzQLbvPutCp9wddWcr81ZCs9qyBFcyeR0ZBkS2hA4QggLBBGa1GScvMKUhgKZA1ZBJLRuXdxBft4Atxi2wZDZD'
+    access_token = 'CAALXlVGl6aABAKyhbDSZC8TtUOUgsaHaswV149TIV0hEFHhlPDIU8vRatI7EXvHrzxKowMFpv8X1pckBI2r7xnRMDkekbq1ZCVPs8Mmozy56xZAYnB42Vj8y1FKbe1RS4lEAgVUlZArItWSoWc9GNkmBER3m6WayKgkxQaZAXMHJckfx5ifBL2iTzsblwbXvkpO4nD3wphAZDZD'
     r = requests.get('https://graph.facebook.com/v2.0/me?access_token='+access_token)
     return self.assertEqual(r.json()['name'],'Open Graph Test User')
 

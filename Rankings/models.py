@@ -1,6 +1,5 @@
 from django.db import models
 from SiteUsers.models import UserProfile,Friends,Education,Location,School
-from django.contrib.auth.models import User
 # These should be updated at intervals or saved when a user requests one
 
 # each location may have at most a single public ranking
@@ -18,13 +17,20 @@ class PublicOrdering(models.Model):
 	rank = models.IntegerField()
 
 class Vote(models.Model):
-	user = models.ForeignKey(User)
+	user = models.ForeignKey('SiteUsers.UserProfile')
 	winner = models.ForeignKey('Bar',related_name='winner')
 	loser = models.ForeignKey('Bar',related_name='loser')
 	date = models.DateField()
 
 	def isMale(self):
 		return self.user.userprofile.gender == 'Male'
+
+class IGrank(models.Model):
+	date = models.DateField()
+	bar = models.ForeignKey(Bar)
+	total_likes = models.IntegerField()
+	avg_likes = models.FloatField()
+
 
 
 

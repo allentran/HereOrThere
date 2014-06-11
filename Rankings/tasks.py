@@ -1,31 +1,89 @@
-# for locations without a public ranking in the past x days, do the ranking
+from django.shortcuts import render
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
-# PUBLIC RANKINGS
+from Rankings.models import Bar,PublicLadder
 
-# p_i is pr(i>average_bar)
-# set p_i empirical winning % and 0.5 if not voted
-# pr(i>>j) = f(p_i-p_j)
-# set p_0 = empirical winning % (e.g assume all other bars are average)
-# for all cha chas in bars:
-#  Cha Cha beat k p_k^n
-#  Cha Cha beat l p_l^n
-#  Cha Cha lost j p_j^n
-#  choose p_cc^n+1= max likelihood assuming independence given obs (1,p_cc^n+1p_k^n),(1,p_cc^n+1-
-#   p_l^n),(0,p_cc^n+1-p_j^n)
-# update and iterate until p_i for a city are done
-# rankings are just the sorted p_i
+import time
+import requests
+import grequests 
+import urllib
+import pandas as pd
+import numpy as np
 
-# PERSONALIZED RANKINGS
-# Random forests
-# vector of features
-# - classification problem (1 won or not or 0) - average across photos? 1=liked more often than not, how to get intensity of likes? % of wins
-# - person characteristics (integer coded location for example, age, potentially college indicators in location (UCLA,USC))
-# - don't forget instagram (is vain person, media, follow, followers)
-# - linear time characteristc? or just use recent, last month data
-# - bar characteristics i and j (essentially embedding others votes as constants, including bar_ids as integers)
-# final score projected from p_j=some bar
+last_week = np.floor(time.time() - 60*60*24*7)
 
-# BATTLES NOTES
-# ensure person doesn't vote on same photo
-# should sample uniformly (if bar has more than x pics) to ensure precision
-# eg cycle through bars best photo before getting photos
+# Get updated categories
+
+FSCatURL = 'https://api.foursquare.com/v2/venues/categories?v=20140226&client_id='+settings.FS_CLIENT_ID+'&client_secret='+settings.FS_CLIENT_SECRET
+Cats = requests.get(FSCatURL)
+CatsDF = pd.DataFrame(Cats.json()['response']['categories'])
+catid = CatsDF.loc[CatsDF['shortName'] == 'Nightlife',:].id
+
+# return IGid mapping to FSid
+def GetIGid(response):
+		if len(response.json()['data']) == 0:
+			return 'Not found'
+		else:
+			return response.json()['data'][0]['id']
+
+# get list of instagram_ids
+# if user's ig_token is available, use it!
+def getLocations(lat,lng):
+	urldict = {'client_id':settings.FS_CLIENT_ID,'client_secret':settings.FS_CLIENT_SECRET,'intent':'browse','radius':1000,'limit':50,'categoryId':catid.values[0],'v':20140226}
+	FSURL = 'https://api.foursquare.com/v2/venues/search?ll='+str(lat)+','+str(lng)+'&'+urllib.urlencode(urldict)
+	FSDF = pd.DataFrame(requests.get(FSURL).json()['response']['venues'])
+	
+	URLS = ['https://api.instagram.com/v1/locations/search?foursquare_v2_id=' 
+	        + FSvenueid + '&v=20140226&client_id='+settings.IG_CLIENT_ID+'&client_secret='+settings.IG_CLIENT_SECRET 
+	        for FSvenueid in FSDF.id]
+	rs = (grequests.get(u) for u in URLS)
+	Responses = grequests.map(rs)
+	
+	FSDF['IGvenueid'] = [GetIGid(response) for response in Responses]
+	FSDF['tips'] = [FSstat['tipCount'] for FSstat in FSDF.stats]
+	FSDF['checkins'] = [FSstat['checkinsCount'] for FSstat in FSDF.stats]
+	FSDF['users'] = [FSstat['usersCount'] for FSstat in FSDF.stats]
+	return FSDF.loc[FSDF['IGvenueid']!='Not found', ['name','id','IGvenueid','tips','checkins','users']]
+
+
+# score a venue 
+def scoreLocation_IG(IGvenueid):
+	
+	API_URL = 'https://api.instagram.com/v1/locations/'+IGvenueid+'/media/recent?access_token='+'190218586.1fb234f.5eec5203634849ee935cad418d02c99c'
+	Likes = []
+	try:
+		while True:
+			r = requests.get(API_URL).json()
+
+			if r['meta']['code'] == 200:
+				for img_data in r['data']:
+					Likes.append(img_data['likes']['count'])
+				print len(Likes)
+			if 'pagination':
+				API_URL = r['pagination']['next_url']
+			else:
+				break
+		return np.mean(Likes)
+	except:
+		pass
+
+
+
+# do +/- .02 on lat/lon to get <=200, save in db
+
+# Silverlake 34.0944,-118.2675
+
+
+
+
+	
+
+	
+
+	
+	
+#	return URLS
+#	return FSDF.loc[FSDF['IGvenueid']!='Not found', ['name','id','IGvenueid','tips','checkins','users']]
+
