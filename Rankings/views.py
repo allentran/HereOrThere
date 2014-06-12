@@ -7,8 +7,13 @@ import grequests
 import urllib
 import pandas as pd
 
+def index(request):
+	context={'profile_pic_url':request.user.userprofile.ig_pic,'profile_username':request.user.userprofile.ig_username}
+
+	return render(request,'base_login.html',context)
+
 # return IGid mapping to FSid
-def GetIGid(response):
+def GetIGid(request):
 		if len(response.json()['data']) == 0:
 			return 'Not found'
 		else:
