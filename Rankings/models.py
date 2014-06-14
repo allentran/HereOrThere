@@ -22,9 +22,6 @@ class Vote(models.Model):
 	loser = models.ForeignKey('Bar',related_name='loser')
 	date = models.DateField()
 
-	def isMale(self):
-		return self.user.userprofile.gender == 'Male'
-
 class IGrank(models.Model):
 	date = models.DateField()
 	bar = models.ForeignKey(Bar)

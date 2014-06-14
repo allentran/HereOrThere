@@ -14,14 +14,16 @@ def index(request):
 
 # return IGid mapping to FSid
 def GetIGid(request):
-		if len(response.json()['data']) == 0:
+		if len(request.json()['data']) == 0:
 			return 'Not found'
 		else:
-			return response.json()['data'][0]['id']
+			return request.json()['data'][0]['id']
 
 # get list of instagram_ids
 # if user's ig_token is available, use it!
 def getLocations(lat,lng):
+	# Get updated categories
+
 	urldict = {'client_id':settings.FS_CLIENT_ID,'client_secret':settings.FS_CLIENT_SECRET,'intent':'browse','radius':1000,'limit':50,'categoryId':catid.values[0],'v':20140226}
 	FSURL = 'https://api.foursquare.com/v2/venues/search?ll='+lat+','+lng+'&'+urllib.urlencode(urldict)
 	FSDF = pd.DataFrame(requests.get(FSURL).json()['response']['venues'])

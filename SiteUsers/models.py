@@ -27,6 +27,9 @@ class UserProfile(models.Model):
   def getFriendsList(self):
     return UserProfile.objects.filter(friend__person=self)
 
+  def isMale(self):
+    return self.user.userprofile.gender == 'Male'
+
 class Friends(models.Model):
   person = models.ForeignKey('UserProfile',related_name='person')
   friend = models.ForeignKey('UserProfile',related_name='friend')
