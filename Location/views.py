@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 @login_required
 def index(request):
 	if request.session['IG_authd']:
+		context={'goog_key':settings.GOOG_KEY}
 		return render(request,'Location/locateme.html',context)
 	else:
 		return HttpResponseRedirect(reverse('SiteUsers:instagram')+'?state='+'login')
@@ -18,3 +19,4 @@ def instructions(request):
 		return render(request,'Location/instructions.html',context)
 	else:
 		return HttpResponseRedirect(reverse('SiteUsers:instagram')+'?state='+'login')
+

@@ -25,7 +25,7 @@ def check(request):
     if r['meta']['code'] == 200:
       updateIGdata(request.user.userprofile,r['data'])
       request.session['IG_authd'] = True
-      return HttpResponse('IG all good + updated, should be battle or location')
+      return HttpResponse('IG all good + updated, should be battle or location' + request.GET.get('next') )
     else: #go login and get a new token
       request.session['IG_authd'] = False
       return HttpResponseRedirect(reverse('SiteUsers:instagram')+'?state='+state)

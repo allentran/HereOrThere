@@ -20,6 +20,9 @@
   {% else %}
     <form class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
       {% csrf_token %}
+      {% if next_url %}
+      <input type='hidden' name='next_url' value='{{ next_url }}' />
+      {% endif %}
       <div class="form-group">
         <input type="text" class="form-control" name="username" placeholder="Username">
         <input type="password" class="form-control" name="password" placeholder="Password">

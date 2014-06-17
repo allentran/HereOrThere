@@ -101,13 +101,24 @@ def register(request):
     return render(request,"SiteUsers/register.html",context)
 
 def login_view(request):
-  user = authenticate(username=request.POST['username'],password=request.POST['password'])
-  login(request, user) 
-  return HttpResponseRedirect(reverse('Instagram:check')+'?state=login')
+  if request.method == 'POST':
+    user = authenticate(username=request.POST['username'],password=request.POST['password'])
+    login(request, user) 
+    if 'next_url' in request.POST:
+      return HttpResponseRedirect(reverse('Instagram:check')+'?state=login&next='+request.POST['next_url'])
+    else:
+      return HttpResponseRedirect(reverse('Instagram:check')+'?state=login&next=none')
+  else:
+    if 'next' in request.GET:
+      next_url = request.GET['next']
+      context = {'next_url':next_url}
+    else:
+      context = {}
+    return render(request,"SiteUsers/login.html",context)
 
 def logout_view(request):
   logout(request)
-  return HttpResponseRedirect(reverse('SiteUsers:register'))
+  return HttpResponseRedirect(reverse('home'))
 
 # Tells user to connect to Instagram, called if 
 def instagram(request):

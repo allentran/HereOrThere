@@ -56,19 +56,19 @@ def scoreLocation_IG(IGvenueid):
     
     API_URL = 'https://api.instagram.com/v1/locations/'+IGvenueid+'/media/recent?access_token='+'190218586.1fb234f.5eec5203634849ee935cad418d02c99c'
     Likes = []
-    try:
-        while True:
-            r = requests.get(API_URL).json()
 
-            if r['meta']['code'] == 200:
-                for img_data in r['data']:
-                    Likes.append(img_data['likes']['count'])
-            if 'pagination':
-                API_URL = r['pagination']['next_url']
-            else:
-                return np.mean(Likes),len(Likes)
-    except:
-        return 0
+    while True:
+        r = requests.get(API_URL).json()
+        import ipdb
+        ipdb.set_trace()
+        if r['meta']['code'] == 200:
+            for img_data in r['data']:
+                Likes.append(img_data['likes']['count'])
+        if r['pagination']:
+            API_URL = r['pagination']['next_url']
+        else:
+            return np.mean(Likes),len(Likes)
+
 
 # gets a .02 degree square around a origin lat,lon point 
 def scatterGPS(lat,lng):
