@@ -1,0 +1,389 @@
+City,State,Neighborhood
+Sydney,NSW,Annandale
+Sydney,NSW,Balmain
+Sydney,NSW,Balmain East
+Sydney,NSW,Barangaroo
+Sydney,NSW,Bondi
+Sydney,NSW,Bondi Beach
+Sydney,NSW,Camperdown
+Sydney,NSW,Chippendale
+Sydney,NSW,Darlinghurst
+Sydney,NSW,Darlington
+Sydney,NSW,Dawes Point
+Sydney,NSW,Elizabeth Bay
+Sydney,NSW,Erskineville
+Sydney,NSW,Eveleigh
+Sydney,NSW,Forest Lodge
+Sydney,NSW,Glebe
+Sydney,NSW,Haymarket
+Sydney,NSW,Leichhardt
+Sydney,NSW,Manly
+Sydney,NSW,Millers Point
+Sydney,NSW,Newtown
+Sydney,NSW,North Bondi
+Sydney,NSW,North Sydney
+Sydney,NSW,Paddington
+Sydney,NSW,Potts Point
+Sydney,NSW,Pyrmont
+Sydney,NSW,Redfern
+Sydney,NSW,Rushcutters Bay
+Sydney,NSW,South Bondi/Tamarama
+Sydney,NSW,Surry Hills
+Sydney,NSW,Sydney
+Sydney,NSW,The Rocks
+Sydney,NSW,Ultimo
+Sydney,NSW,Waterloo
+Sydney,NSW,Wooloomooloo
+Melbourne,VIC,Abbotsford
+Melbourne,VIC,Albert Park
+Melbourne,VIC,Balaclava
+Melbourne,VIC,Carlton
+Melbourne,VIC,Carlton North
+Melbourne,VIC,Clifton Hill
+Melbourne,VIC,Collingwood
+Melbourne,VIC,Docklands
+Melbourne,VIC,East Melbourne
+Melbourne,VIC,Elwood
+Melbourne,VIC,Fitzroy
+Melbourne,VIC,Fitzroy North
+Melbourne,VIC,Flemington
+Melbourne,VIC,Kensington
+Melbourne,VIC,Melbourne
+Melbourne,VIC,Middle Park
+Melbourne,VIC,North Melbourne
+Melbourne,VIC,Parkville
+Melbourne,VIC,Port Melbourne
+Melbourne,VIC,Prahran
+Melbourne,VIC,Richmond
+Melbourne,VIC,South Wharf
+Melbourne,VIC,South Yarra
+Melbourne,VIC,Southbank
+Melbourne,VIC,St Kilda
+Melbourne,VIC,St Kilda East
+Melbourne,VIC,St Kilda West
+Melbourne,VIC,West Melbourne
+Melbourne,VIC,Windsor
+Los Angeles,CA,Adams Normandie
+Los Angeles,CA,Alhambra
+Los Angeles,CA,Arleta
+Los Angeles,CA,Arlington Heights
+Los Angeles,CA,Arts District
+Los Angeles,CA,Athens
+Los Angeles,CA,Atwater Village
+Los Angeles,CA,Baldwin Hills/Crenshaw
+Los Angeles,CA,Bel Air
+Los Angeles,CA,Beverly Crest
+Los Angeles,CA,Beverly Grove
+Los Angeles,CA,Beverly Hills
+Los Angeles,CA,Beverlywood
+Los Angeles,CA,Boyle Heights
+Los Angeles,CA,Brentwood
+Los Angeles,CA,Broadway-Manchester
+Los Angeles,CA,Burbank
+Los Angeles,CA,Canoga Park
+Los Angeles,CA,Carthay
+Los Angeles,CA,Central Alameda
+Los Angeles,CA,Century City
+Los Angeles,CA,Chatsworth
+Los Angeles,CA,Chesterfield Square
+Los Angeles,CA,Cheviot Hills
+Los Angeles,CA,Chinatown
+Los Angeles,CA,Culver City
+Los Angeles,CA,Cypress Park
+Los Angeles,CA,Del Rey
+Los Angeles,CA,Downtown
+Los Angeles,CA,Eagle Rock
+Los Angeles,CA,East Hollywood
+Los Angeles,CA,East Los Angeles
+Los Angeles,CA,Echo Park
+Los Angeles,CA,El Segundo
+Los Angeles,CA,El Sereno
+Los Angeles,CA,Elysian Park
+Los Angeles,CA,Encino
+Los Angeles,CA,Exposition Park
+Los Angeles,CA,Fairfax
+Los Angeles,CA,Florence
+Los Angeles,CA,Florence-Firestone
+Los Angeles,CA,Glassell Park
+Los Angeles,CA,Glendale
+Los Angeles,CA,Gramercy Park
+Los Angeles,CA,Granada Hills
+Los Angeles,CA,Green Meadows
+Los Angeles,CA,Griffith Park
+Los Angeles,CA,Hancock Park
+Los Angeles,CA,Harbor City
+Los Angeles,CA,Harbor Gateway
+Los Angeles,CA,Harvard Heights
+Los Angeles,CA,Harvard Park
+Los Angeles,CA,Hermosa Beach
+Los Angeles,CA,Highland Park
+Los Angeles,CA,Historic South Central
+Los Angeles,CA,Hollywood
+Los Angeles,CA,Hollywood Hills
+Los Angeles,CA,Hollywood Hills West
+Los Angeles,CA,Huntington Park
+Los Angeles,CA,Hyde Park
+Los Angeles,CA,Jefferson Park
+Los Angeles,CA,Koreatown
+Los Angeles,CA,Ladera Heights
+Los Angeles,CA,Lake Balboa
+Los Angeles,CA,Lake View Terrace
+Los Angeles,CA,Larchmont
+Los Angeles,CA,Leimert Park
+Los Angeles,CA,Lincoln Heights
+Los Angeles,CA,Little Tokyo
+Los Angeles,CA,Los Feliz
+Los Angeles,CA,Manchester Square
+Los Angeles,CA,Manhattan Beach
+Los Angeles,CA,Mar Vista
+Los Angeles,CA,Marina del Rey
+Los Angeles,CA,Mid-City
+Los Angeles,CA,Mid-Wilshire
+Los Angeles,CA,Mission Hills
+Los Angeles,CA,Montecito Heights
+Los Angeles,CA,Mount Washington
+Los Angeles,CA,North Hills
+Los Angeles,CA,North Hollywood
+Los Angeles,CA,Northridge
+Los Angeles,CA,Pacific Palisades
+Los Angeles,CA,Pacoima
+Los Angeles,CA,Palms
+Los Angeles,CA,Panorama City
+Los Angeles,CA,Pasadena
+Los Angeles,CA,Pico-Robertson
+Los Angeles,CA,Pico-Union
+Los Angeles,CA,Playa Vista
+Los Angeles,CA,Playa del Rey
+Los Angeles,CA,Porter Ranch
+Los Angeles,CA,Rancho Park
+Los Angeles,CA,Redondo Beach
+Los Angeles,CA,Reseda
+Los Angeles,CA,San Fernando
+Los Angeles,CA,San Pedro
+Los Angeles,CA,Santa Monica
+Los Angeles,CA,Sawtelle
+Los Angeles,CA,Sepulveda Basin
+Los Angeles,CA,Shadow Hills
+Los Angeles,CA,Sherman Oaks
+Los Angeles,CA,Silver Lake
+Los Angeles,CA,South Park
+Los Angeles,CA,South Pasadena
+Los Angeles,CA,Studio City
+Los Angeles,CA,Sun Valley
+Los Angeles,CA,Sunland
+Los Angeles,CA,Sylmar
+Los Angeles,CA,Tarzana
+Los Angeles,CA,Terminal Island
+Los Angeles,CA,Toluca Lake
+Los Angeles,CA,Torrance
+Los Angeles,CA,Tujunga
+Los Angeles,CA,UCLA
+Los Angeles,CA,Universal City
+Los Angeles,CA,University Park
+Los Angeles,CA,Valley Glen
+Los Angeles,CA,Valley Village
+Los Angeles,CA,Van Nuys
+Los Angeles,CA,Venice
+Los Angeles,CA,Vermont Knolls
+Los Angeles,CA,Vermont Square
+Los Angeles,CA,Vermont Vista
+Los Angeles,CA,Vermont-Slauson
+Los Angeles,CA,Vernon
+Los Angeles,CA,View Park/Windsor Hills
+Los Angeles,CA,Walnut Park
+Los Angeles,CA,Watts
+Los Angeles,CA,West Adams
+Los Angeles,CA,West Hills
+Los Angeles,CA,West Hollywood
+Los Angeles,CA,West Los Angeles
+Los Angeles,CA,Westchester
+Los Angeles,CA,Westlake
+Los Angeles,CA,Westmont
+Los Angeles,CA,Westwood
+Los Angeles,CA,Wilmington
+Los Angeles,CA,Wilshire Center
+Los Angeles,CA,Windsor Square
+Los Angeles,CA,Winnetka
+Los Angeles,CA,Woodland Hills
+San Francisco,CA,Alamo Square
+San Francisco,CA,Anza Vista
+San Francisco,CA,Ashbury Heights
+San Francisco,CA,Balboa Terrace
+San Francisco,CA,Bayview-Hunters Point
+San Francisco,CA,Bernal Heights
+San Francisco,CA,Castro
+San Francisco,CA,Chinatown
+San Francisco,CA,Civic Center
+San Francisco,CA,Cole Valley
+San Francisco,CA,Corona Heights
+San Francisco,CA,Crocker-Amazon
+San Francisco,CA,Diamond Heights
+San Francisco,CA,Dogpatch
+San Francisco,CA,Duboce Triangle
+San Francisco,CA,Embarcadero
+San Francisco,CA,Excelsior
+San Francisco,CA,Fillmore
+San Francisco,CA,Financial District
+San Francisco,CA,Fisherman's Wharf
+San Francisco,CA,Forest Hill
+San Francisco,CA,Glen Park
+San Francisco,CA,Hayes Valley
+San Francisco,CA,Ingleside
+San Francisco,CA,Ingleside Heights
+San Francisco,CA,Ingleside Terraces
+San Francisco,CA,Inner Richmond
+San Francisco,CA,Inner Sunset
+San Francisco,CA,Japantown
+San Francisco,CA,Lakeshore
+San Francisco,CA,Lakeside
+San Francisco,CA,Laurel Heights
+San Francisco,CA,Lower Haight
+San Francisco,CA,Lower Pacific Heights
+San Francisco,CA,Marina/Cow Hollow
+San Francisco,CA,Merced Heights
+San Francisco,CA,Merced Manor
+San Francisco,CA,Miraloma Park
+San Francisco,CA,Mission
+San Francisco,CA,Mission Bay
+San Francisco,CA,Mission Terrace
+San Francisco,CA,Monterey Heights
+San Francisco,CA,Mount Davidson Manor
+San Francisco,CA,NoPa
+San Francisco,CA,Nob Hill
+San Francisco,CA,Noe Valley
+San Francisco,CA,North Beach/Telegraph Hill
+San Francisco,CA,Oceanview
+San Francisco,CA,Outer Mission
+San Francisco,CA,Outer Richmond
+San Francisco,CA,Outer Sunset
+San Francisco,CA,Pacific Heights
+San Francisco,CA,Parkmerced
+San Francisco,CA,Parkside
+San Francisco,CA,Portola
+San Francisco,CA,Potrero Hill
+San Francisco,CA,Presidio
+San Francisco,CA,Presidio Heights
+San Francisco,CA,Russian Hill
+San Francisco,CA,Sea Cliff
+San Francisco,CA,Sherwood Forest
+San Francisco,CA,SoMa
+San Francisco,CA,South Beach
+San Francisco,CA,St Francis Wood
+San Francisco,CA,Stonestown
+San Francisco,CA,Sunnyside
+San Francisco,CA,Tenderloin
+San Francisco,CA,The Haight
+San Francisco,CA,Twin Peaks
+San Francisco,CA,Union Square
+San Francisco,CA,Visitacion Valley
+San Francisco,CA,West Portal
+San Francisco,CA,Western Addition
+San Francisco,CA,Westwood Highlands
+San Francisco,CA,Westwood Park
+Brooklyn,NY,Bath Beach
+Brooklyn,NY,Bay Ridge
+Brooklyn,NY,Bedford Stuyvesant
+Brooklyn,NY,Bensonhurst
+Brooklyn,NY,Bergen Beach
+Brooklyn,NY,Boerum Hill
+Brooklyn,NY,Borough Park
+Brooklyn,NY,Brighton Beach
+Brooklyn,NY,Brooklyn Heights
+Brooklyn,NY,Brownsville
+Brooklyn,NY,Bushwick
+Brooklyn,NY,Canarsie
+Brooklyn,NY,Carroll Gardens
+Brooklyn,NY,City Line
+Brooklyn,NY,Clinton Hill
+Brooklyn,NY,Cobble Hill
+Brooklyn,NY,Columbia Street Waterfront District
+Brooklyn,NY,Coney Island
+Brooklyn,NY,Crown Heights
+Brooklyn,NY,Cypress Hills
+Brooklyn,NY,DUMBO
+Brooklyn,NY,Ditmas Park
+Brooklyn,NY,Downtown Brooklyn
+Brooklyn,NY,Dyker Heights
+Brooklyn,NY,East Flatbush
+Brooklyn,NY,East New York
+Brooklyn,NY,East Williamsburg
+Brooklyn,NY,Flatbush
+Brooklyn,NY,Flatlands
+Brooklyn,NY,Fort Greene
+Brooklyn,NY,Fort Hamilton
+Brooklyn,NY,Georgetown
+Brooklyn,NY,Gerritson Beach
+Brooklyn,NY,Gowanus
+Brooklyn,NY,Gravesend
+Brooklyn,NY,Greenpoint
+Brooklyn,NY,Highland Park
+Brooklyn,NY,Kensington
+Brooklyn,NY,Manhattan Beach
+Brooklyn,NY,Marine Park
+Brooklyn,NY,Midwood
+Brooklyn,NY,Mill Basin
+Brooklyn,NY,Mill Island
+Brooklyn,NY,New Lots
+Brooklyn,NY,Ocean Hill
+Brooklyn,NY,Ocean Parkway
+Brooklyn,NY,Paedergat Basin
+Brooklyn,NY,Park Slope
+Brooklyn,NY,Prospect Heights
+Brooklyn,NY,Prospect Lefferts Gardens
+Brooklyn,NY,Prospect Park South
+Brooklyn,NY,Red Hook
+Brooklyn,NY,Remsen Village
+Brooklyn,NY,Sea Gate
+Brooklyn,NY,Sheepshead Bay
+Brooklyn,NY,South Slope
+Brooklyn,NY,South Williamsburg
+Brooklyn,NY,Spring Creek
+Brooklyn,NY,Starret City
+Brooklyn,NY,Sunset Park
+Brooklyn,NY,Vinegar Hill
+Brooklyn,NY,Weeksville
+Brooklyn,NY,Williamsburg - North Side
+Brooklyn,NY,Williamsburg - South Side
+Brooklyn,NY,Windsor Terrace
+Brooklyn,NY,Wingate
+Manhattan,NY,Alphabet City
+Manhattan,NY,Battery Park
+Manhattan,NY,Chelsea
+Manhattan,NY,Chinatown
+Manhattan,NY,Civic Center
+Manhattan,NY,East Harlem
+Manhattan,NY,East Village
+Manhattan,NY,Financial District
+Manhattan,NY,Flatiron
+Manhattan,NY,Gramercy
+Manhattan,NY,Greenwich Village
+Manhattan,NY,Harlem
+Manhattan,NY,Hell's Kitchen
+Manhattan,NY,Inwood
+Manhattan,NY,Kips Bay
+Manhattan,NY,Koreatown
+Manhattan,NY,Little Italy
+Manhattan,NY,Lower East Side
+Manhattan,NY,Manhattan Valley
+Manhattan,NY,Marble Hill
+Manhattan,NY,Meatpacking District
+Manhattan,NY,Midtown East
+Manhattan,NY,Midtown West
+Manhattan,NY,Morningside Heights
+Manhattan,NY,Murray Hill
+Manhattan,NY,NoHo
+Manhattan,NY,Nolita
+Manhattan,NY,Roosevelt Island
+Manhattan,NY,SoHo
+Manhattan,NY,South Street Seaport
+Manhattan,NY,South Village
+Manhattan,NY,Stuyvesant Town
+Manhattan,NY,Theater District
+Manhattan,NY,TriBeCa
+Manhattan,NY,Two Bridges
+Manhattan,NY,Union Square
+Manhattan,NY,Upper East Side
+Manhattan,NY,Upper West Side
+Manhattan,NY,Washington Heights
+Manhattan,NY,West Village
+Manhattan,NY,Yorkville

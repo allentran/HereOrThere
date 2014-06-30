@@ -1,31 +1,38 @@
-{% extends "base.html" %}
+{% extends "base_login.html" %}
 
 {% block pagetitle %}
 Choose Your Location
 {% endblock %}
 
 {% block style %}
-html, body, #map-canvas {
+html, body {
         height: 100%;
         margin: 0px;
         padding: 0px
       }
+
+#jbtron {
+  height: 500px;
+}
 {% endblock %}
 
-{% block prescript %}<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script> {% endblock %}
+{% block prescript %}
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key={{ goog_key }}">
+</script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>  -->
+{% endblock %}
 {% block script %}
-var initialLocation;
+    var initialLocation;
     var siberia = new google.maps.LatLng(60, 105);
     var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
     var browserSupportFlag =  new Boolean();
 
     function initialize() {
-     // var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
       var mapOptions = {
         zoom: 12,
-     //   center: myLatlng
       }
-      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var map = new google.maps.Map(document.getElementById('jbtron'), mapOptions);
 
       var marker=new google.maps.Marker({
         position:newyork,
@@ -84,9 +91,10 @@ var initialLocation;
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
+
 {% endblock %}
 
-{% block content %}
+{% block tester %}
 <div id="map-canvas"></div>
 {% endblock %}
 

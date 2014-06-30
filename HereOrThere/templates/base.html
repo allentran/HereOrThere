@@ -10,40 +10,85 @@
     <meta name="author" content="">
 <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'HereOrThere/css/bootstrap.min.css' %}" />
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+	<link rel="stylesheet" href="{% static 'HereOrThere/css/pure-min.css' %}" />
 	<!-- Custom styles for this template -->
 	<link rel="stylesheet" type="text/css" href="{% static 'HereOrThere/css/jumbotron-narrow.css' %}" />
-<title>HereOrThere: {% block pagetitle %}{% endblock %}</title>
+<title>BarBarSheep: {% block pagetitle %}{% endblock %}</title>
 	<style>
     {%block style%}
     {% endblock %}
     </style>
 <meta charset="UTF-8">
 </head>
-<body>
-<nav>
-    <ul>
-      <li><dd>HereOrThere</dd></li>
-      <li><a>Linkies</a>
-      </li>
-    </ul>
-</nav>
-
 {% block prescript %}{% endblock %}
-<script>{% block script %}{% endblock %}</script>
-{% block content %}{% endblock %}
+<script>
+
+
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+ 
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '{{FACEBOOK_APP_ID}}',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.0' // use version 2.0
+  });
+
+
+  
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+{% block script %}{% endblock %}</script>
+<body>
+
+<div class="container">
+      <div class="header">
+<!--Login buttons or logout button-->
+
+        {% block navright %}
+
+        {% endblock %}
+        <h3 class="text-muted">BarBarSheep</h3>
+
+      </div>
+
+      <div class="center_box" id="jbtron">
+        <h1>{% block jumboheading %}{% endblock %}</h1>
+        <p class="lead">
+
+{% block content %}{% endblock %}</p>
+      </div>
+{% block postjumbo %} {% endblock %}
+
+      <div class="footer">
+        <p>&copy; BarBarSheep 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+{% block tester %}{% endblock %}
+
 </body>
 </html>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+  
 
     <title>Narrow Jumbotron Template for Bootstrap</title>
 
@@ -63,51 +108,7 @@
 
   <body>
 
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">Project name</h3>
-      </div>
-
-      <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
-
-      <div class="footer">
-        <p>&copy; Company 2014</p>
-      </div>
-
-    </div> <!-- /container -->
+    
 
 
     <!-- Bootstrap core JavaScript

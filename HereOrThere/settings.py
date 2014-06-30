@@ -36,11 +36,15 @@ FACEBOOK_PERMISSIONS = 'public_profile,user_birthday,user_location,user_educatio
 
 IG_CLIENT_ID = '7ee1596fd66c4d9892a6f176fd6d8599'
 IG_CLIENT_SECRET = '1eb95c8932af428b9b38753754b7bc30'
-
+IG_token = '190218586.1fb234f.5eec5203634849ee935cad418d02c99c'
 # FourSquare
 
 FS_CLIENT_ID = 'HGCO5PFRJKVUUJDFB4S2ICB23STSOHZDYH5SYHY1GAFR5ZSQ'
 FS_CLIENT_SECRET = 'HJOBTZVHMYHJWLUVJREZ0OEM3BS1HME34T0TF14D1UEX1RQU'
+
+# Google Maps Api 
+
+GOOG_KEY = 'AIzaSyCl0lwA38Jykb_obSa822VQ17RCnQc5uG8'
 
 # Application definition
 
@@ -51,11 +55,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'FBLogin',
     'Location',
     'SiteUsers',
     'south',
-    'django_extensions',
+#    'django_extensions',
+    'Instagram',
+    'Errors',
+    'Rankings',
+    'Battles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,4 +119,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/auth/login/'

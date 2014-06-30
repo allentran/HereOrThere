@@ -1,0 +1,35 @@
+<!-- For page where user wants to login or is logged in -->
+{% extends "base.html" %}
+
+{% block navright %}
+  <ul class="nav nav-pills pull-right">
+  {% if user.is_authenticated %}
+    {% if request.session.IG_authd %}
+    {{ request.user }}
+      <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
+        <button type="submit" class="btn btn-default">hi</button>
+      </form>
+    {% else %}
+    
+      <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
+      <img src="{{ user.userprofile.ig_pic }}" width=25>
+      {{ user.userprofile.ig_username }}
+        <button type="submit" class="btn btn-default">Logout</button>
+      </form>
+    {% endif %}
+  {% else %}
+    <form class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
+      {% csrf_token %}
+      {% if next_url %}
+      <input type='hidden' name='next_url' value='{{ next_url }}' />
+      {% endif %}
+      <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username">
+        <input type="password" class="form-control" name="password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-default">Login</button>
+    </form>
+  {% endif %}
+  </ul>
+{% endblock %}
+

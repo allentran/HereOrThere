@@ -10,13 +10,19 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding model 'UserProfile'
         db.create_table(u'SiteUsers_userprofile', (
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('fb_token', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('fb_token', self.gf('django.db.models.fields.CharField')(max_length=500)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('fb_id', self.gf('django.db.models.fields.CharField')(max_length=200, primary_key=True)),
+            ('fb_id', self.gf('django.db.models.fields.CharField')(default='', max_length=200)),
+            ('ig_token', self.gf('django.db.models.fields.CharField')(default='', max_length=500)),
+            ('ig_username', self.gf('django.db.models.fields.CharField')(default='', max_length=100)),
+            ('ig_pic', self.gf('django.db.models.fields.CharField')(default='', max_length=100)),
+            ('ig_follows', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('ig_followers', self.gf('django.db.models.fields.IntegerField')(default=0)),
             ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.Location'])),
-            ('birthyear', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('birthyear', self.gf('django.db.models.fields.IntegerField')()),
+            ('gender', self.gf('django.db.models.fields.CharField')(default='', max_length=10)),
         ))
         db.send_create_signal(u'SiteUsers', ['UserProfile'])
 
@@ -43,6 +49,8 @@ class Migration(SchemaMigration):
         db.create_table(u'SiteUsers_location', (
             ('location_id', self.gf('django.db.models.fields.CharField')(max_length=200, primary_key=True)),
             ('location_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('location_lat', self.gf('django.db.models.fields.FloatField')(default=0)),
+            ('location_lng', self.gf('django.db.models.fields.FloatField')(default=0)),
         ))
         db.send_create_signal(u'SiteUsers', ['Location'])
 
@@ -91,6 +99,8 @@ class Migration(SchemaMigration):
         u'SiteUsers.location': {
             'Meta': {'object_name': 'Location'},
             'location_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
+            'location_lat': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'location_lng': ('django.db.models.fields.FloatField', [], {'default': '0'}),
             'location_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'SiteUsers.school': {
@@ -101,13 +111,19 @@ class Migration(SchemaMigration):
         },
         u'SiteUsers.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
-            'birthyear': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
-            'fb_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
-            'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'birthyear': ('django.db.models.fields.IntegerField', [], {}),
+            'fb_id': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '200'}),
+            'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'gender': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
+            'ig_followers': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'ig_follows': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'ig_pic': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'ig_token': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '500'}),
+            'ig_username': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.Location']"}),
-            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+            'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},
