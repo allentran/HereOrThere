@@ -19,6 +19,7 @@ last_week = np.floor(time.time() - 60*60*24*7)
 FSCatURL = 'https://api.foursquare.com/v2/venues/categories?v=20140226&client_id='+settings.FS_CLIENT_ID+'&client_secret='+settings.FS_CLIENT_SECRET
 Cats = requests.get(FSCatURL)
 CatsDF = pd.DataFrame(Cats.json()['response']['categories'])
+
 catid = CatsDF.loc[CatsDF['shortName'] == 'Nightlife',:].id     
 
 # returns dataframe of bars, rate limit left else None
@@ -53,6 +54,7 @@ def getFSBars(lat,lng):
     except requests.exceptions.ConnectionError as e:
         print e
         return None,'unknown'
+
 
 
 # score a venue 
@@ -90,12 +92,10 @@ def getAllLocations(scatteredLLs):
     return pd.concat(Bars,ignore_index=True).groupby('id').first().reset_index(),FS_queries_left
 
 
+
 # do +/- .02 on lat/lon to get <=200, save in db
 
 # Silverlake 34.0944,-118.2675
-
-# def getNewBars
-
 
 
 

@@ -11,6 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Bar'
         db.create_table(u'Rankings_bar', (
             ('FS_id', self.gf('django.db.models.fields.CharField')(max_length=255, primary_key=True)),
+<<<<<<< HEAD
             ('IG_id', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('Name', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('lat', self.gf('django.db.models.fields.FloatField')(default=0)),
@@ -30,6 +31,15 @@ class Migration(SchemaMigration):
         db.create_table(u'Rankings_publicladder', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.City'])),
+=======
+        ))
+        db.send_create_signal(u'Rankings', ['Bar'])
+
+        # Adding model 'PublicLadder'
+        db.create_table(u'Rankings_publicladder', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.Location'])),
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
             ('date', self.gf('django.db.models.fields.DateField')()),
         ))
         db.send_create_signal(u'Rankings', ['PublicLadder'])
@@ -46,13 +56,20 @@ class Migration(SchemaMigration):
         # Adding model 'Vote'
         db.create_table(u'Rankings_vote', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+<<<<<<< HEAD
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.UserProfile'])),
             ('winner', self.gf('django.db.models.fields.related.ForeignKey')(related_name='winner', null=True, to=orm['Rankings.Bar'])),
             ('loser', self.gf('django.db.models.fields.related.ForeignKey')(related_name='loser', null=True, to=orm['Rankings.Bar'])),
+=======
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('winner', self.gf('django.db.models.fields.related.ForeignKey')(related_name='winner', to=orm['Rankings.Bar'])),
+            ('loser', self.gf('django.db.models.fields.related.ForeignKey')(related_name='loser', to=orm['Rankings.Bar'])),
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
             ('date', self.gf('django.db.models.fields.DateField')()),
         ))
         db.send_create_signal(u'Rankings', ['Vote'])
 
+<<<<<<< HEAD
         # Adding model 'IGrank'
         db.create_table(u'Rankings_igrank', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -63,14 +80,19 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'Rankings', ['IGrank'])
 
+=======
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
 
     def backwards(self, orm):
         # Deleting model 'Bar'
         db.delete_table(u'Rankings_bar')
 
+<<<<<<< HEAD
         # Deleting model 'BarLocations'
         db.delete_table(u'Rankings_barlocations')
 
+=======
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
         # Deleting model 'PublicLadder'
         db.delete_table(u'Rankings_publicladder')
 
@@ -80,13 +102,17 @@ class Migration(SchemaMigration):
         # Deleting model 'Vote'
         db.delete_table(u'Rankings_vote')
 
+<<<<<<< HEAD
         # Deleting model 'IGrank'
         db.delete_table(u'Rankings_igrank')
 
+=======
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
 
     models = {
         u'Rankings.bar': {
             'FS_id': ('django.db.models.fields.CharField', [], {'max_length': '255', 'primary_key': 'True'}),
+<<<<<<< HEAD
             'IG_id': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'Meta': {'object_name': 'Bar'},
             'Name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
@@ -112,6 +138,15 @@ class Migration(SchemaMigration):
             'city': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.City']"}),
             'date': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+=======
+            'Meta': {'object_name': 'Bar'}
+        },
+        u'Rankings.publicladder': {
+            'Meta': {'object_name': 'PublicLadder'},
+            'date': ('django.db.models.fields.DateField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.Location']"})
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
         },
         u'Rankings.publicordering': {
             'Meta': {'object_name': 'PublicOrdering'},
@@ -124,6 +159,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Vote'},
             'date': ('django.db.models.fields.DateField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+<<<<<<< HEAD
             'loser': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'loser'", 'null': 'True', 'to': u"orm['Rankings.Bar']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.UserProfile']"}),
             'winner': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'winner'", 'null': 'True', 'to': u"orm['Rankings.Bar']"})
@@ -157,6 +193,18 @@ class Migration(SchemaMigration):
             'ig_username': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
+=======
+            'loser': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'loser'", 'to': u"orm['Rankings.Bar']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'winner': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'winner'", 'to': u"orm['Rankings.Bar']"})
+        },
+        u'SiteUsers.location': {
+            'Meta': {'object_name': 'Location'},
+            'location_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
+            'location_lat': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'location_lng': ('django.db.models.fields.FloatField', [], {'default': '0'}),
+            'location_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+>>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
         },
         u'auth.group': {
             'Meta': {'object_name': 'Group'},

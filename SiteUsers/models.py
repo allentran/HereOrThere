@@ -60,6 +60,7 @@ class Neighborhood(models.Model):
   def __unicode__(self):
     return self.neighborhood_name
 
+
 class School(models.Model):
   school_id = models.CharField(max_length=200,primary_key=True)
   school_name = models.CharField(max_length=200)

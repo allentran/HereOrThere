@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'UserProfile.ig_token'
-        db.add_column(u'SiteUsers_userprofile', 'ig_token',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=500),
+        # Adding field 'UserProfile.gender'
+        db.add_column(u'SiteUsers_userprofile', 'gender',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=10),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'UserProfile.ig_token'
-        db.delete_column(u'SiteUsers_userprofile', 'ig_token')
+        # Deleting field 'UserProfile.gender'
+        db.delete_column(u'SiteUsers_userprofile', 'gender')
 
 
     models = {
@@ -49,6 +49,7 @@ class Migration(SchemaMigration):
             'fb_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
             'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'gender': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
             'ig_token': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '500'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.Location']"}),

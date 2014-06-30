@@ -8,14 +8,30 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding field 'UserProfile.ig_follows'
+        db.add_column(u'SiteUsers_userprofile', 'ig_follows',
+                      self.gf('django.db.models.fields.IntegerField')(default=0),
+                      keep_default=False)
 
-        # Changing field 'UserProfile.fb_token'
-        db.alter_column(u'SiteUsers_userprofile', 'fb_token', self.gf('django.db.models.fields.CharField')(max_length=500))
+        # Adding field 'UserProfile.ig_followed'
+        db.add_column(u'SiteUsers_userprofile', 'ig_followed',
+                      self.gf('django.db.models.fields.IntegerField')(default=0),
+                      keep_default=False)
+
+
+        # Changing field 'UserProfile.birthyear'
+        db.alter_column(u'SiteUsers_userprofile', 'birthyear', self.gf('django.db.models.fields.IntegerField')())
 
     def backwards(self, orm):
+        # Deleting field 'UserProfile.ig_follows'
+        db.delete_column(u'SiteUsers_userprofile', 'ig_follows')
 
-        # Changing field 'UserProfile.fb_token'
-        db.alter_column(u'SiteUsers_userprofile', 'fb_token', self.gf('django.db.models.fields.CharField')(max_length=200))
+        # Deleting field 'UserProfile.ig_followed'
+        db.delete_column(u'SiteUsers_userprofile', 'ig_followed')
+
+
+        # Changing field 'UserProfile.birthyear'
+        db.alter_column(u'SiteUsers_userprofile', 'birthyear', self.gf('django.db.models.fields.CharField')(max_length=200))
 
     models = {
         u'SiteUsers.education': {
@@ -43,10 +59,16 @@ class Migration(SchemaMigration):
         },
         u'SiteUsers.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
-            'birthyear': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'birthyear': ('django.db.models.fields.IntegerField', [], {}),
             'fb_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
             'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'gender': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
+            'ig_followed': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'ig_follows': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'ig_pic': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'ig_token': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '500'}),
+            'ig_username': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.Location']"}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})

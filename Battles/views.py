@@ -6,3 +6,4 @@ from django.http import HttpResponse, HttpResponseRedirect
 @login_required
 def index(request):
 	return render(request,'Battles/battle.html',{})
+

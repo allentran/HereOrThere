@@ -8,71 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'UserProfile'
-        db.create_table(u'SiteUsers_userprofile', (
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('fb_token', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('fb_id', self.gf('django.db.models.fields.CharField')(max_length=200, primary_key=True)),
-            ('location', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.Location'])),
-            ('birthyear', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'SiteUsers', ['UserProfile'])
+        # Adding field 'UserProfile.ig_username'
+        db.add_column(u'SiteUsers_userprofile', 'ig_username',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=100),
+                      keep_default=False)
 
-        # Adding model 'Friends'
-        db.create_table(u'SiteUsers_friends', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('person', self.gf('django.db.models.fields.related.ForeignKey')(related_name='person', to=orm['SiteUsers.UserProfile'])),
-            ('friend', self.gf('django.db.models.fields.related.ForeignKey')(related_name='friend', to=orm['SiteUsers.UserProfile'])),
-        ))
-        db.send_create_signal(u'SiteUsers', ['Friends'])
-
-        # Adding unique constraint on 'Friends', fields ['person', 'friend']
-        db.create_unique(u'SiteUsers_friends', ['person_id', 'friend_id'])
-
-        # Adding model 'Education'
-        db.create_table(u'SiteUsers_education', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.UserProfile'])),
-            ('school', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['SiteUsers.School'])),
-        ))
-        db.send_create_signal(u'SiteUsers', ['Education'])
-
-        # Adding model 'Location'
-        db.create_table(u'SiteUsers_location', (
-            ('location_id', self.gf('django.db.models.fields.CharField')(max_length=200, primary_key=True)),
-            ('location_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'SiteUsers', ['Location'])
-
-        # Adding model 'School'
-        db.create_table(u'SiteUsers_school', (
-            ('school_id', self.gf('django.db.models.fields.CharField')(max_length=200, primary_key=True)),
-            ('school_name', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('school_type', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'SiteUsers', ['School'])
+        # Adding field 'UserProfile.ig_pic'
+        db.add_column(u'SiteUsers_userprofile', 'ig_pic',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=100),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Friends', fields ['person', 'friend']
-        db.delete_unique(u'SiteUsers_friends', ['person_id', 'friend_id'])
+        # Deleting field 'UserProfile.ig_username'
+        db.delete_column(u'SiteUsers_userprofile', 'ig_username')
 
-        # Deleting model 'UserProfile'
-        db.delete_table(u'SiteUsers_userprofile')
-
-        # Deleting model 'Friends'
-        db.delete_table(u'SiteUsers_friends')
-
-        # Deleting model 'Education'
-        db.delete_table(u'SiteUsers_education')
-
-        # Deleting model 'Location'
-        db.delete_table(u'SiteUsers_location')
-
-        # Deleting model 'School'
-        db.delete_table(u'SiteUsers_school')
+        # Deleting field 'UserProfile.ig_pic'
+        db.delete_column(u'SiteUsers_userprofile', 'ig_pic')
 
 
     models = {
@@ -103,8 +55,12 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'UserProfile'},
             'birthyear': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'fb_id': ('django.db.models.fields.CharField', [], {'max_length': '200', 'primary_key': 'True'}),
-            'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'fb_token': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'gender': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '10'}),
+            'ig_pic': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
+            'ig_token': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '500'}),
+            'ig_username': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['SiteUsers.Location']"}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
