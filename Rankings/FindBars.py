@@ -48,3 +48,11 @@ for ii,hood in enumerate(Hoods):
 		break
 	print 'Done with ' + hood.neighborhood_name + ', ' + hood.city.city_name + ' (' + str( np.round(100.0*(ii+1)/len(Hoods),2) ) + '% completed)'
 
+# Bars that require IG_ids
+
+Bars_missing_IG = Bar.objects.all().filter(IG_id='')
+for bar in Bars_missing_IG:
+	bar.GetIG_ID()
+
+
+

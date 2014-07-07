@@ -24,8 +24,8 @@ class UserProfile(models.Model):
   def fullname(self):
     return self.first_name +' ' + self.last_name
 
-  def getFriendsList(self):
-    return UserProfile.objects.filter(friend__person=self)
+  # def getFriendsList(self):
+  #   return UserProfile.objects.filter(friend__person=self)
 
   def isMale(self):
     return self.user.userprofile.gender == 'Male'

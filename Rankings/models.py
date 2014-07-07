@@ -1,8 +1,9 @@
 from django.db import models
+from django.conf import settings
 
 import requests
 
-from SiteUsers.models import UserProfile,Friends,Education,Location,School
+from SiteUsers.models import UserProfile,Friends,Education,School
 
 
 class Bar(models.Model):
@@ -20,8 +21,10 @@ class Bar(models.Model):
         r = requests.get(IG_URL)
         if len(r.json()['data']) > 0:
             self.IG_id = r.json()['data'][0]['id']
+            self.save()
         else:
-            self.IG_id = 'Not found'
+            self.IG_id = ''
+            self.save()
 
 
 
@@ -50,7 +53,7 @@ class IGrank(models.Model):
     bar = models.ForeignKey(Bar)
     total_likes = models.IntegerField()
     avg_likes = models.FloatField()
-=======
+
 class Bar(models.Model):
 	FS_id = models.CharField(primary_key=True,max_length=255)
 
@@ -74,7 +77,7 @@ class IGrank(models.Model):
 	bar = models.ForeignKey(Bar)
 	total_likes = models.IntegerField()
 	avg_likes = models.FloatField()
->>>>>>> 1a979101ec488e45df196b6bd89ce4a8710b83f5
+
 
 
 
