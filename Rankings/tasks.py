@@ -3,8 +3,11 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
+
 from Rankings.models import Bar,PublicLadder
 
+from math import radians,cos,sin
+from random import uniform
 import time
 import requests
 import grequests 
@@ -74,14 +77,14 @@ def scoreLocation_IG(IGvenueid):
             return np.mean(Likes),len(Likes)
 
 
-# gets a .02 degree square around a origin lat,lon point 
-def scatterGPS(lat,lng):
-    delta = 0.02 
-    delta_list = np.array([+delta]*2+[-delta]*2)
-    lats = lat + np.append(delta_list,0)
-    lngs = lng + np.append(np.roll(delta_list,1),0)
-    return np.vstack((lats,lngs)).T
+# gets a random 4 point circle of points around a origin lat,lon point 
 
+def scatterGPS(lat,lng):
+    radius = uniform(0.01,0.035);
+    angles = uniform(0,90)+90*np.array([0,1,2,3])
+    lats = radius*np.sin(np.radians(angles))
+    lngs = radius*np.cos(np.radians(angles))
+    return zip(lats,lngs)
 # returns df, remaining FS queries
 def getAllLocations(scatteredLLs):
     Bars = []
@@ -89,7 +92,11 @@ def getAllLocations(scatteredLLs):
         ListOBars,FS_queries_left = getFSBars(latlons[0],latlons[1])
         if ListOBars is not None:
             Bars.append(ListOBars)
-    return pd.concat(Bars,ignore_index=True).groupby('id').first().reset_index(),FS_queries_left
+    Bars = [barlist for barlist in Bars if barlist is not None]
+    if Bars: #i.e if you actually found some bars
+        return pd.concat(Bars,ignore_index=True).groupby('id').first().reset_index(),FS_queries_left
+    else:
+        return None,'unknown'
 
 
 

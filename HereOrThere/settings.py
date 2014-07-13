@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from __future__ import absolute_import
+
+from celery.schedules import crontab
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -120,3 +123,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/auth/login/'
+
+# Celery
+
+# CELERYBEAT_SCHEDULE = {
+#     # crontab(hour=0, minute=0, day_of_week='saturday')
+#     'schedule-name': {  # example: 'file-backup' 
+#         'task': 'some_django_app.tasks....',  # example: 'files.tasks.cleanup' 
+#         'schedule': crontab(...)
+#     },
+# }
