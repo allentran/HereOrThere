@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from SiteUsers.models import UserProfile,Friends,Education,Location,School
+from SiteUsers.models import UserProfile
 import requests
 
 # update ig_data for userprofile

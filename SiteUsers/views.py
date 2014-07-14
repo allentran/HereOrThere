@@ -8,8 +8,9 @@ from django.contrib.auth import logout,login,authenticate
 import facebook
 import datetime
 import requests
+import hashlib
 
-from .models import UserProfile,Friends,Education,Location,School
+from .models import UserProfile,Friends,Education,School
 from .forms import UserForm
 
 IGauth = 'https://api.instagram.com/oauth/authorize/?response_type=code&client_id='
@@ -102,8 +103,44 @@ def register(request):
 
 def login_view(request):
   if request.method == 'POST':
-    user = authenticate(username=request.POST['username'],password=request.POST['password'])
-    login(request, user) 
+    userprofile = UserProfile.objects.filter(fb_id = request.POST['fb_user_id'])
+    if not userprofile:
+      fbuser = facebook.get_user_from_cookie(request.COOKIES, settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
+      if fbuser:
+        graph = facebook.GraphAPI(fbuser["access_token"])
+        fbprofile = graph.get_object("me")
+        fbfriends = graph.get_connections("me", "friends")
+        # auto fill in new user fields
+        hashed_password = hashlib.sha1(settings.HASH_PHRASE + request.POST['fb_user_id']).hexdigest()
+        fname = fbprofile['first_name']
+        lname = fbprofile['last_name']
+        username = '_'.join([fname,lname,request.POST['fb_user_id']])
+        user = User.objects.create_user(username=username, email=fbprofile['email'], password = hashed_password)
+        userprofile = UserProfile(fb_id = fbprofile['id'], user=user, fb_token=fbuser["access_token"],first_name=fbprofile['first_name'],
+            last_name=fbprofile['last_name'],gender = fbprofile['gender'],
+            birthyear = datetime.datetime.strptime(fbprofile['birthday'],'%m/%d/%Y').year)
+        userprofile.save()
+        enterSchoolUser(fbprofile["education"],userprofile)
+        enterFriends(fbfriends,userprofile)
+
+        new_user = authenticate(username=username,password=hashed_password)
+        login(request, new_user) 
+        RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
+        IGUrl = IGauth+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&state=register'
+      else:
+        pass
+        # point to FB error page
+    else:
+      userprofile = userprofile[0]
+      userprofile.fb_token = request.POST['fb_user_token']
+      userprofile.save()
+      user = userprofile.user
+      password = hashlib.sha1(settings.HASH_PHRASE + userprofile.fb_id).hexdigest()
+      new_user = authenticate(username=user.username,password=password)
+      fbuser = facebook.get_user_from_cookie(request.COOKIES, settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
+      graph = facebook.GraphAPI(fbuser["access_token"])
+      fbprofile = graph.get_object("me")
+      login(request, new_user) 
     if 'next_url' in request.POST:
       return HttpResponseRedirect(reverse('Instagram:check')+'?state=login&next='+request.POST['next_url'])
     else:

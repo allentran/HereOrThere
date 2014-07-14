@@ -28,12 +28,12 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
+HASH_PHRASE = 'Allen is King 1984 to forever'
 # Facebook
 
 FACEBOOK_APP_ID = '799986273348000'
 FACEBOOK_APP_SECRET = '795662238ef28e0741ab4b7bdc1b9e7c'
-FACEBOOK_PERMISSIONS = 'public_profile,user_birthday,user_location,user_education_history,user_friends'
+FACEBOOK_PERMISSIONS = 'public_profile,email,user_birthday,user_location,user_education_history,user_friends'
 
 # Instagram
 

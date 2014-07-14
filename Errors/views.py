@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from SiteUsers.forms import UserForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout,login,authenticate
-from SiteUsers.models import UserProfile,Friends,Education,Location,School
+
 
 def index(request):
   error_code = request.GET['errorcode']

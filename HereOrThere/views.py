@@ -8,7 +8,8 @@ def home(request):
 	if 'next' in request.GET:
 		next_url = request.GET['next']
 	if not request.user.is_authenticated():
-		context = {'next_url':next_url}
+		# context = {'next_url':next_url}
+		context = {}
 		return render(request,'base_login.html',context)
 	else:
 		return HttpResponse('Hi')		

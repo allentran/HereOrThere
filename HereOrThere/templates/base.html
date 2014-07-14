@@ -40,7 +40,9 @@
   });
 
 
-  
+  FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
 
   };
 
@@ -53,6 +55,35 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
+
+  function log_user_in(response) {
+    var form = document.getElementById("login_form");
+    var uid = response.authResponse.userID;
+    var token = response.authResponse.accessToken;
+    document.getElementById('fb_userid_field').setAttribute('value',uid);
+    document.getElementById('fb_token_field').setAttribute('value',token);
+    form.submit()
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  function statusChangeCallback(response) {
+
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      log_user_in(response);
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please authorize BarBarSheep';
+    } 
+  }
+
+
+
 {% block script %}{% endblock %}</script>
 <body>
 
@@ -61,6 +92,36 @@
 <!--Login buttons or logout button-->
 
         {% block navright %}
+          <ul class="nav nav-pills pull-right">
+  {% if user.is_authenticated %}
+    {% if request.session.IG_authd %}
+      {{ request.user }}
+        <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
+          <button type="submit" class="btn btn-default">hi</button>
+        </form>
+    {% else %}
+    
+        <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
+        <img src="{{ user.userprofile.ig_pic }}" width=25>
+        {{ user.userprofile.ig_username }}
+          <button type="submit" class="btn btn-default">Logout</button>
+        </form>
+    {% endif %}
+  {% else %}
+    <form id='login_form' class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
+      {% csrf_token %}
+      <input id='fb_userid_field' type='hidden' name='fb_user_id'  />
+      <input id='fb_token_field' type='hidden' name='fb_user_token'  />
+    </form>
+
+    <fb:login-button class="navbar-form nav-pills navbar-right" size="large" scope={{FBPermissions}}
+                 onlogin="checkLoginState()">
+  Login via Facebook
+</fb:login-button>
+<li id='status' class="navbar-form nav-pills navbar-right"></li>
+  {% endif %}
+
+  </ul>
 
         {% endblock %}
         <h3 class="text-muted">BarBarSheep</h3>
