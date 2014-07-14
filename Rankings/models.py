@@ -48,6 +48,11 @@ class Vote(models.Model):
     loser = models.ForeignKey(Bar,related_name='loser',null=True)
     date = models.DateField()
 
+class Gotos(models.Model):
+    user = models.ForeignKey('SiteUsers.UserProfile')
+    bar = models.ForeignKey(Bar)
+    date = models.DateField()
+
 class IGrank(models.Model):
     date = models.DateField()
     bar = models.ForeignKey(Bar)
