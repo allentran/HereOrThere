@@ -106,11 +106,12 @@ def login_view(request):
     userprofile = UserProfile.objects.filter(fb_id = request.POST['fb_user_id'])
     if not userprofile:
       fbuser = facebook.get_user_from_cookie(request.COOKIES, settings.FACEBOOK_APP_ID, settings.FACEBOOK_APP_SECRET)
-      if fbuser:
+      if fbuser: # fb user logged in and exists
         graph = facebook.GraphAPI(fbuser["access_token"])
         fbprofile = graph.get_object("me")
         fbfriends = graph.get_connections("me", "friends")
-        # auto fill in new user fields
+
+        # log user into site
         hashed_password = hashlib.sha1(settings.HASH_PHRASE + request.POST['fb_user_id']).hexdigest()
         fname = fbprofile['first_name']
         lname = fbprofile['last_name']
@@ -125,8 +126,11 @@ def login_view(request):
 
         new_user = authenticate(username=username,password=hashed_password)
         login(request, new_user) 
+        
+        # redirect to check instagram id
         RedirectURI = 'http://'+request.get_host()+reverse('Instagram:redirect')
-        IGUrl = IGauth+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&state=register'
+        IGUrl = IGauth+settings.IG_CLIENT_ID+'&redirect_uri='+RedirectURI+'&state=login'
+        return HttpResponseRedirect(IGUrl)
       else:
         pass
         # point to FB error page
@@ -150,7 +154,7 @@ def login_view(request):
       next_url = request.GET['next']
       context = {'next_url':next_url}
     else:
-      context = {}
+      context = {"FACEBOOK_APP_ID": settings.FACEBOOK_APP_ID,'FBPermissions': settings.FACEBOOK_PERMISSIONS}
     return render(request,"SiteUsers/login.html",context)
 
 def logout_view(request):

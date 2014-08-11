@@ -83,6 +83,13 @@
   }
 
 
+  function logout(event) {
+    event.preventDefault();
+    FB.logout(function(response) {}); 
+    window.location.replace("{% url 'SiteUsers:logout' %}");
+  }
+
+
 
 {% block script %}{% endblock %}</script>
 <body>
@@ -94,19 +101,13 @@
         {% block navright %}
           <ul class="nav nav-pills pull-right">
   {% if user.is_authenticated %}
-    {% if request.session.IG_authd %}
-      {{ request.user }}
-        <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
-          <button type="submit" class="btn btn-default">hi</button>
-        </form>
-    {% else %}
     
-        <form class="navbar-form nav-pills navbar-right" role="logout" action="{% url 'SiteUsers:logout' %}">
-        <img src="{{ user.userprofile.ig_pic }}" width=25>
-        {{ user.userprofile.ig_username }}
-          <button type="submit" class="btn btn-default">Logout</button>
-        </form>
-    {% endif %}
+      <form class="navbar-form nav-pills navbar-right" role="logout" >
+      <img src="{{ user.userprofile.ig_pic }}" width=25>
+      {{ user.userprofile.ig_username }}
+        <button type="submit" class="btn btn-default" onClick="JavaScript:logout(event)">Logout</button>
+      </form>
+
   {% else %}
     <form id='login_form' class="navbar-form nav-pills navbar-right" action="{% url 'SiteUsers:login' %}"role="login" method="post">
       {% csrf_token %}
@@ -134,7 +135,7 @@
         <h1>{% block jumboheading %}{% endblock %}</h1>
         <p class="lead">
 
-{% block content %}{% endblock %}</p>
+{% block content %}hi{% endblock %}</p>
       </div>
 {% block postjumbo %} {% endblock %}
 
